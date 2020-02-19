@@ -21,6 +21,7 @@ module FlipTheSwitch
       INHERITS_KEY = 'inherits_from'
       ENABLED_KEY = 'enabled'
       DESCRIPTION_KEY = 'description'
+      DELETION_TICKET_URL_KEY = 'deletion_ticket_url'
 
       def inherited_environment(env_name)
         inherited_env = environments_by_name[env_name]
@@ -109,7 +110,7 @@ module FlipTheSwitch
       end
 
       def parse_sub_features(info, parent_name)
-        info.select { |key, _| ![ENABLED_KEY, DESCRIPTION_KEY].include?(key) }.map { |sub_name, sub_info|
+        info.select { |key, _| ![ENABLED_KEY, DESCRIPTION_KEY, DELETION_TICKET_URL_KEY].include?(key) }.map { |sub_name, sub_info|
           parse_feature(sub_name, sub_info, parent_name)
         }
       end
@@ -139,6 +140,9 @@ module FlipTheSwitch
                   type: :boolean
                 },
                 description: {
+                  type: :string
+                },
+                deletion_ticket_url: {
                   type: :string
                 },
                 additionalProperties: {
