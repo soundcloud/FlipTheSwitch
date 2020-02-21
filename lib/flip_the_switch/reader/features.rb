@@ -21,7 +21,6 @@ module FlipTheSwitch
       INHERITS_KEY = 'inherits_from'
       ENABLED_KEY = 'enabled'
       DESCRIPTION_KEY = 'description'
-      DELETION_TICKET_URL_KEY = 'deletion_ticket_url'
 
       def inherited_environment(env_name)
         inherited_env = environments_by_name[env_name]
@@ -54,30 +53,8 @@ module FlipTheSwitch
       def merge_feature(parent_feature, child_feature)
         Feature.new(parent_feature.name,
           (child_feature.enabled != nil) ? child_feature.enabled : parent_feature.enabled,
-          child_feature.description ? child_feature.description : parent_feature.description,
-          sub_features(child_feature, parent_feature),
-          child_feature.parent_name
+          child_feature.description ? child_feature.description : parent_feature.description
         )
-      end
-
-      def sub_features(child_feature, parent_feature)
-        if !child_feature.sub_features.empty?
-          merge_sub_features(parent_feature.sub_features, child_feature.sub_features)
-        else
-          parent_feature.sub_features
-        end
-      end
-
-      def merge_sub_features(parent_feature_sub_features, child_feature_sub_features)
-        child_feature_sub_features.inject([]) { |merged_sub_features, child_sub_feature|
-          merged_sub_features.push(merge_feature(related_parents_sub_feature(parent_feature_sub_features, child_sub_feature.name), child_sub_feature))
-        }
-      end
-
-      def related_parents_sub_feature(parent_feature_sub_features, sub_feature_name)
-        parent_feature_sub_features.detect { |parent_sub_feature|
-          parent_sub_feature.name == sub_feature_name
-        }
       end
 
       def environments_by_name
@@ -101,18 +78,14 @@ module FlipTheSwitch
         info.select { |key, _|
           key != INHERITS_KEY
         }.map { |feature_name, feature_info|
-          parse_feature(feature_name, feature_info, nil)
+          parse_feature(feature_name, feature_info)
         }
       end
 
-      def parse_feature(name, info, parent_name)
-        Feature.new(name, info.fetch(ENABLED_KEY), info[DESCRIPTION_KEY], parse_sub_features(info, name), parent_name)
-      end
-
-      def parse_sub_features(info, parent_name)
-        info.select { |key, _| ![ENABLED_KEY, DESCRIPTION_KEY, DELETION_TICKET_URL_KEY].include?(key) }.map { |sub_name, sub_info|
-          parse_feature(sub_name, sub_info, parent_name)
-        }
+      def parse_feature(name, info)
+        Feature.new(name, info.fetch(ENABLED_KEY), info[DESCRIPTION_KEY])
+      rescue KeyError
+        raise Error::InvalidFile.new(input_file)
       end
 
       def json
@@ -126,46 +99,12 @@ module FlipTheSwitch
       end
 
       def valid_file?
-        JSON::Validator.validate(expected_schema, input_file)
+        json
+        true
+      rescue JSON::ParserError
+        false
       end
 
-      def expected_schema
-        {
-          type: :object,
-          additionalProperties: {
-            type: :object,
-            additionalProperties: {
-              properties: {
-                enabled: {
-                  type: :boolean
-                },
-                description: {
-                  type: :string
-                },
-                deletion_ticket_url: {
-                  type: :string
-                },
-                additionalProperties: {
-                  properties: {
-                    enabled: {
-                      type: :boolean
-                    },
-                    description: {
-                      type: :string
-                    },
-                    required: [
-                      :enabled
-                    ]
-                  }
-                }
-              },
-              required: [
-                :enabled
-              ]
-            }
-          }
-        }
-      end
     end
   end
 end

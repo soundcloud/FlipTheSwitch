@@ -67,28 +67,6 @@ The features can defaulted to enabled/disabled via a plist file `Features.plist`
 
 ```
 
-### Subfeatures
-
-You can add as many subfeatures to a feature recursively. Resulting in a plist as e.g. :
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-<plist version="1.0">
-	<dict>
-		<key>description</key>
-		<string>is disabled description</string>
-		<key>enabled</key>
-		<false/>
-		<key>subfeature</key>
-		<dict>
-			<key>enabled</key>
-			<true/>
-		</dict>
-	</dict>
-</plist>
-```
-
 ### Configuration Screen
 
 ![Screenshot of configuration screen](images/feature_configuration_screen.png)
@@ -106,11 +84,11 @@ When a feature status changes, you can find out about it by listening for the no
 
 ### Plattform Support
 
-* iOS 
+* iOS
 	* example project
 	* full test coverage
 	* configuration screen
-* Mac OSX 
+* Mac OSX
 	* example project
 	* full test coverage
 
@@ -141,20 +119,16 @@ e.g:
 @end
 ```
 
-### Define Features and subfeatures
+### Define Features
 
-The features and subfeatures, along with their default enabled/disabled state, are read from a `features.json` file. e.g.:
+The features, along with their default enabled/disabled state, are read from a `features.json` file. e.g.:
 
 ```json
 {
 	"default": {
 		"awesome_feature": {
-			"enabled": true,	
+			"enabled": true,
 			"description": "Makes this project awesome",
-			"sub_feature": {
-				"enabled": true,
-				"description": "Makes this project even more awesome"		
-			}
 		}
 	},
 	"beta": {
@@ -164,7 +138,7 @@ The features and subfeatures, along with their default enabled/disabled state, a
 		}
 	}
 }    
-    
+
 ```
 
 In order to avoid typing in the same options all the time, you can create a `.flip.yml` file for the default options, e.g.:

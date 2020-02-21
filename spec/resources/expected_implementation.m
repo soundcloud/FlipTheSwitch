@@ -33,41 +33,9 @@
     return @"first_feature";
 }
 
-+ (BOOL)isSecondFeatureEnabled
-{
-    return [self isFirstFeatureEnabled] &&
-        [[FTSFlipTheSwitch sharedInstance] isFeatureEnabled:[self secondFeatureKey]];
-}
-
-+ (void)enableSecondFeature
-{
-    [[FTSFlipTheSwitch sharedInstance] enableFeature:[self secondFeatureKey]];
-}
-
-+ (void)disableSecondFeature
-{
-    [[FTSFlipTheSwitch sharedInstance] disableFeature:[self secondFeatureKey]];
-}
-
-+ (void)setSecondFeatureEnabled:(BOOL)enabled
-{
-    [[FTSFlipTheSwitch sharedInstance] setFeature:[self secondFeatureKey] enabled:enabled];
-}
-
-+ (void)resetSecondFeature
-{
-    [[FTSFlipTheSwitch sharedInstance] resetFeature:[self secondFeatureKey]];
-}
-
-+ (NSString *)secondFeatureKey
-{
-    return @"second_feature";
-}
-
 + (void)resetAll
 {
     [self resetFirstFeature];
-    [self resetSecondFeature];
 }
 
 @end

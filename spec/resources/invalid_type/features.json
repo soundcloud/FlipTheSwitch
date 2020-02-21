@@ -2,10 +2,7 @@
   "defaults": {
     "enabled_feature": {
       "enabled": false,
-      "description": "This feature is enabled",
-      "sub_feature": {
-        "enabled": false
-      }
+      "description": "This feature is enabled"
     },
     "disabled_feature_missing_enabled": {
     }
@@ -17,7 +14,3 @@
     }
   }
 }
-
-
-
-

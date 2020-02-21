@@ -10,12 +10,5 @@
 + (void)resetFirstFeature;
 + (NSString *)firstFeatureKey;
 
-+ (BOOL)isSecondFeatureEnabled;
-+ (void)enableSecondFeature;
-+ (void)disableSecondFeature;
-+ (void)setSecondFeatureEnabled:(BOOL)enabled;
-+ (void)resetSecondFeature;
-+ (NSString *)secondFeatureKey;
-
 + (void)resetAll;
 @end
