@@ -3,8 +3,8 @@ require 'spec_helper'
 describe FlipTheSwitch::Generator::Plist do
   subject(:plist) { described_class.new(output, features) }
   let(:features) { [
-    FlipTheSwitch::Feature.new('enabled_feature', true, nil),
-    FlipTheSwitch::Feature.new('disabled_feature', false, 'is disabled description')
+    FlipTheSwitch::Feature.new('enabled_feature', true, nil, true),
+    FlipTheSwitch::Feature.new('disabled_feature', false, 'is disabled description', false)
   ] }
   let(:output_file) { 'tmp/Features.plist' }
   let(:actual_output_file) { File.read(output_file) }
