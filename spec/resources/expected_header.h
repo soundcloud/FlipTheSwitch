@@ -9,6 +9,7 @@
 + (void)setFirstFeatureEnabled:(BOOL)enabled;
 + (void)resetFirstFeature;
 + (NSString *)firstFeatureKey;
++ (BOOL)isFirstFeatureRealTime;
 
 + (void)resetAll;
 @end

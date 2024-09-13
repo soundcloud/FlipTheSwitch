@@ -18,9 +18,9 @@ module FlipTheSwitch
 
       def feature_hash(feature)
         if feature.description
-          {enabled: feature.enabled, description: feature.description}
+          {enabled: feature.enabled, description: feature.description, is_real_time: feature.is_real_time}
         else
-          {enabled: feature.enabled}
+          {enabled: feature.enabled, is_real_time: feature.is_real_time}
         end
       end
 

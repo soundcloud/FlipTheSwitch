@@ -33,6 +33,11 @@
     return @"first_feature";
 }
 
++ (BOOL)isFirstFeatureRealTime
+{
+    return NO;
+}
+
 + (void)resetAll
 {
     [self resetFirstFeature];

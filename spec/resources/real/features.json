@@ -2,17 +2,20 @@
   "defaults": {
     "enabled_feature": {
       "enabled": true,
-      "description": "This feature is enabled"
+      "description": "This feature is enabled",
+      "is_real_time": true
     },
     "disabled_feature": {
       "enabled": false,
-      "description": "This feature is disabled"
+      "description": "This feature is disabled",
+      "is_real_time": false
     }
   },
   "alpha": {
     "inherits_from": "defaults",
     "enabled_feature": {
-      "enabled": false
+      "enabled": false,
+      "is_real_time": false
     }
   },
   "intermediate": {
@@ -21,7 +24,8 @@
   "beta": {
     "inherits_from": "intermediate",
     "enabled_feature": {
-      "enabled": true
+      "enabled": true,
+      "is_real_time": true
     }
   }
 }

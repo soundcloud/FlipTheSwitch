@@ -34,6 +34,11 @@
     return @"<%= feature.name %>";
 }
 
++ (BOOL)is<%= camelize(feature.name) %>RealTime
+{
+    return <%= feature.is_real_time ? 'YES' : 'NO' %>;
+}
+
 <% end -%>
 + (void)resetAll
 {
