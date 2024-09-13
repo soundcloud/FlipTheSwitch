@@ -12,6 +12,7 @@
 + (void)set<%= camelize(feature.name) %>Enabled:(BOOL)enabled;
 + (void)reset<%= camelize(feature.name) %>;
 + (NSString *)<%= lower_camelize(feature.name) %>Key;
++ (BOOL)is<%= camelize(feature.name) %>RealTime;
 
 <% end -%>
 + (void)resetAll;
