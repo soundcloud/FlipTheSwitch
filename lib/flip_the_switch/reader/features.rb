@@ -21,6 +21,7 @@ module FlipTheSwitch
       INHERITS_KEY = 'inherits_from'
       ENABLED_KEY = 'enabled'
       DESCRIPTION_KEY = 'description'
+      IS_REAL_TIME_KEY = 'is_real_time'
 
       def inherited_environment(env_name)
         inherited_env = environments_by_name[env_name]
@@ -53,7 +54,8 @@ module FlipTheSwitch
       def merge_feature(parent_feature, child_feature)
         Feature.new(parent_feature.name,
           (child_feature.enabled != nil) ? child_feature.enabled : parent_feature.enabled,
-          child_feature.description ? child_feature.description : parent_feature.description
+          child_feature.description ? child_feature.description : parent_feature.description,
+          (child_feature.is_real_time != nil) ? child_feature.is_real_time : parent_feature.is_real_time
         )
       end
 
@@ -83,7 +85,7 @@ module FlipTheSwitch
       end
 
       def parse_feature(name, info)
-        Feature.new(name, info.fetch(ENABLED_KEY), info[DESCRIPTION_KEY])
+        Feature.new(name, info.fetch(ENABLED_KEY), info[DESCRIPTION_KEY], info[IS_REAL_TIME_KEY])
       rescue KeyError
         raise Error::InvalidFile.new(input_file)
       end
