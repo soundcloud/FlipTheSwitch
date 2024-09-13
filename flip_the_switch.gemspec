@@ -4,7 +4,7 @@ Gem::Specification.new do |s|
   s.email = %w(mg.england@gmail.com rob@robsiwek.com)
   s.summary = 'A simple library to help enabling/disabling features on iOS/Mac applications.'
   s.homepage = 'https://github.com/michaelengland/FlipTheSwitch'
-  s.version = '2.0.0'
+  s.version = '2.1.0'
   s.license = 'MIT'
 
   s.add_dependency 'thor', '~> 0.19'
